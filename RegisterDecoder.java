@@ -1,11 +1,12 @@
 public class RegisterDecoder{
 
     public static String decode(String instruction){
-        String result;
-        char type = defineRegType(instruction.substring( 0, instruction.indexOf(" ") ) );
+        String result = "";
+        char type = defineRegType(instruction.substring( 0, instruction.indexOf(" ")) );
+
         switch(type){
             case 'r':
-                proccessInstructionTypeR(instruction);
+                result = proccessInstructionTypeR(instruction);
                 break;
             case 'i':
                 proccessInstructionTypeI(instruction);
@@ -18,12 +19,36 @@ public class RegisterDecoder{
         return result;
     }
 
-    private static void proccessInstructionTypeR(String instruction){
+    private static String proccessInstructionTypeR(String instruction){
         // R -> [OpCode, rs(arg1), rt(arg2), rd(result), shamt, funct]
 
+        String[] inst = instruction.split(" ");
+        String[] instRegisters = inst[1].split(",");
+
         String opCode = "000000";
+        String rs, rt, rd, shamt, funct;
+        String result;
 
+        if(inst[0].equals("mult") || inst[0].equals("div")){
 
+            rs = RegistersBinaryTable.getRegBinaryValue(instRegisters[0]);
+            rt = RegistersBinaryTable.getRegBinaryValue(instRegisters[1]);
+            rd = "00000";
+            shamt = "00000";
+            funct = OpCodeTable.getFunct( instruction.substring(0, instruction.indexOf(" ")) );
+
+        } else {
+            
+            rs = RegistersBinaryTable.getRegBinaryValue(instRegisters[1]);
+            rt = RegistersBinaryTable.getRegBinaryValue(instRegisters[2]);
+            rd = RegistersBinaryTable.getRegBinaryValue(instRegisters[0]);
+            shamt = "00000";
+            funct = OpCodeTable.getFunct( instruction.substring( 0, instruction.indexOf(" ")) );
+
+        }
+
+        result = opCode + rs + rt + rd + shamt + funct;
+        return result;
     }
 
     private static void proccessInstructionTypeI(String instruction){
