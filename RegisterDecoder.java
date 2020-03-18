@@ -35,7 +35,7 @@ public class RegisterDecoder{
             rt = RegistersBinaryTable.getRegBinaryValue(instRegisters[1]);
             rd = "00000";
             shamt = "00000";
-            funct = OpCodeTable.getFunct( instruction.substring(0, instruction.indexOf(" ")) );
+            funct = OpCodeTable.getFunct(inst[0]);
 
         } else {
             
@@ -43,7 +43,7 @@ public class RegisterDecoder{
             rt = RegistersBinaryTable.getRegBinaryValue(instRegisters[2]);
             rd = RegistersBinaryTable.getRegBinaryValue(instRegisters[0]);
             shamt = "00000";
-            funct = OpCodeTable.getFunct( instruction.substring( 0, instruction.indexOf(" ")) );
+            funct = OpCodeTable.getFunct(inst[0]);
 
         }
 
@@ -51,8 +51,20 @@ public class RegisterDecoder{
         return result;
     }
 
-    private static void proccessInstructionTypeI(String instruction){
-
+    private static String proccessInstructionTypeI(String instruction){
+        // I = [OpCode, rs, rt, immediate (16 bits)]
+        String opCode,rs,rt,immediate;
+        String result;
+        String[] divInstruction = instruction.split(" ");        
+        //divInstruction[] = [opCode,(rs,rt,immediate)]
+        String[] newInstructions = divInstruction[1].split(",");
+        //newInstructions[] = [rs,rt,immediate]
+        opCode = OpCodeTable.getOpCode(divInstruction[0]);
+        rs = RegistersBinaryTable.getRegBinaryValue(newInstructions[0]);
+        rt = RegistersBinaryTable.getRegBinaryValue(newInstructions[1]);
+        immediate = newInstructions[2]; // Passar pra binário
+        result = opCode + rs + rt + immediate;
+        return result;
     }
 
     private static void proccessInstructionTypeJ(String instruction){
