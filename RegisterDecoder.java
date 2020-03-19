@@ -51,22 +51,41 @@ public class RegisterDecoder{
         return result;
     }
 
+    // TYPE I 
     private static String proccessInstructionTypeI(String instruction){
         // I = [OpCode, rs, rt, immediate (16 bits)]
         String opCode,rs,rt,immediate;
         String result;
+        int IntegerImmediate;
         String[] divInstruction = instruction.split(" ");        
         //divInstruction[] = [opCode,(rs,rt,immediate)]
         String[] newInstructions = divInstruction[1].split(",");
         //newInstructions[] = [rs,rt,immediate]
         opCode = OpCodeTable.getOpCode(divInstruction[0]);
+
+        // Colocar as excessoes LW e SW 
+
         rs = RegistersBinaryTable.getRegBinaryValue(newInstructions[0]);
         rt = RegistersBinaryTable.getRegBinaryValue(newInstructions[1]);
-        immediate = newInstructions[2]; // Passar pra binário
+
+        IntegerImmediate = Integer.parseInt(newInstructions[2]);
+
+        immediate = completeSixteenBits(IntegerImmediate);
+        
         result = opCode + rs + rt + immediate;
         return result;
     }
+    private static String completeSixteenBits(int binaryNumber){
+        String value = Integer.toBinaryString(binaryNumber);
+        int valueLength = value.length();
 
+        while (valueLength < 16){
+            value = "0" + value;
+            valueLength++;
+        }
+        return value;
+    }
+    // end of Type I
     private static void proccessInstructionTypeJ(String instruction){
 
     }
