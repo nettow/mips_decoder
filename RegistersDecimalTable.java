@@ -1,5 +1,5 @@
-public class RegistersBinaryTable{
-    public static int getRegBinaryValue(String register){
+public class RegistersDecimalTable{
+    public static int getRegDecimalValue(String register){
 
         switch(register){
             case "$zero": return 0;
