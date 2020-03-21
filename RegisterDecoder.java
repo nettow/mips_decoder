@@ -114,10 +114,19 @@ public class RegisterDecoder {
         }
         return value;
     }
-
     // end of Type I
-    private static void proccessInstructionTypeJ(String instruction) {
+    
+    private static String proccessInstructionTypeJ(String instruction) {
+        String opCode;
+        String address = "";
 
+        String binaryResult;
+
+        String[] divInstruction = instruction.split(" ");
+        opCode = OpCodeTable.getOpCode(divInstruction[0]);
+
+        binaryResult = opCode + address;
+        return binaryResult;
     }
 
     private static char defineRegType(String inst) {
