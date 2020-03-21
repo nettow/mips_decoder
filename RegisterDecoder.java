@@ -93,7 +93,7 @@ public class RegisterDecoder {
             rtDecimal = RegistersDecimalTable.getRegDecimalValue(newInstructions[0]);
             rt = Integer.toBinaryString(rtDecimal);
             baseReg = newInstructions[1].substring(newInstructions[1].indexOf("("), newInstructions[1].indexOf(")"));
-            integerImmediate = rtDecimal + Integer.parseInt(baseReg);
+            integerImmediate = rtDecimal + RegistersDecimalTable.getRegDecimalValue(baseReg);
             immediate = completeSixteenBits(integerImmediate);
 
         }else if (opCode == "000100" || opCode == "000101"){ // BEQ and BNE
