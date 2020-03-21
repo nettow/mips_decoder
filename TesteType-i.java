@@ -33,8 +33,8 @@ class Teste {
             rtDecimal = RegistersDecimalTable.getRegDecimalValue(newInstructions[0]);
             rt = Integer.toBinaryString(rtDecimal);
             baseReg = newInstructions[1].substring(newInstructions[1].indexOf("(") + 1, newInstructions[1].indexOf(")") );
-            RegistersDecimalTable.getRegDecimalValue(baseReg);
-            integerImmediate = rtDecimal + Integer.parseInt(baseReg);
+            int baseRegDecimal = RegistersDecimalTable.getRegDecimalValue(baseReg);
+            integerImmediate = rtDecimal + baseRegDecimal;
             immediate = completeSixteenBits(integerImmediate);
 
             binaryResult = opCode + rt + rs + immediate;
