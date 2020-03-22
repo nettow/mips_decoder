@@ -1,3 +1,4 @@
+package Decoders;
 public class RegisterDecoder {
 
     public static String decode(String instruction) {

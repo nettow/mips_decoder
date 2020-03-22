@@ -1,3 +1,5 @@
+package Decoders;
+import Tables.*;
 public class DecoderTypeI {
     // TYPE I [OpCode, rs, rt, immediate (16 bits)]
     public static String proccessInstructionTypeI(String instruction) {

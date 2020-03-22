@@ -1,3 +1,5 @@
+package Tables;
+
 public class RegistersDecimalTable{
     public static int getRegDecimalValue(String register){
 

@@ -1,3 +1,6 @@
+package Decoders;
+
+import Tables.*;
 public class DecoderTypeR {
 
     public static String proccessInstructionTypeR(String instruction) {

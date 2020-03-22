@@ -4,7 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-
+import Decoders.*;
 public class Mips32decode{
     public static void main(String[] args) {
         BufferedReader reader;
