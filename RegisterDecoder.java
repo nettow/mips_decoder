@@ -6,105 +6,20 @@ public class RegisterDecoder {
 
         switch (type) {
             case 'r':
-                result = proccessInstructionTypeR(instruction);
+                result = DecoderTypeR.proccessInstructionTypeR(instruction);
                 break;
             case 'i':
-                proccessInstructionTypeI(instruction);
+                result = DecoderTypeI.proccessInstructionTypeI(instruction);
                 break;
             case 'j':
-                proccessInstructionTypeJ(instruction);
+                result = DecoderTypeJ.proccessInstructionTypeJ(instruction);
                 break;
         }
 
         return result;
     }
 
-    private static String proccessInstructionTypeR(String instruction) {
-        // R -> [OpCode, rs(arg1), rt(arg2), rd(result), shamt, funct]
-
-        String[] inst = instruction.split(" ");
-        String[] instRegisters = inst[1].split(",");
-
-        String opCode = "000000";
-        int rsInteger, rtInteger, rdInteger;
-        String rs, rt, rd, shamt, funct = "";
-        String result;
-
-        if (inst[0].equals("mult") || inst[0].equals("div")){
-
-            rsInteger = RegistersDecimalTable.getRegDecimalValue(instRegisters[0]);
-            rs = Integer.toBinaryString(rsInteger);
-
-            rtInteger = RegistersDecimalTable.getRegDecimalValue(instRegisters[1]);
-            rt = Integer.toBinaryString(rtInteger);
-
-            rd = "00000";
-            shamt = "00000";
-            funct = OpCodeTable.getFunct(inst[0]);
-
-        } else{
-
-            rsInteger = RegistersDecimalTable.getRegDecimalValue(instRegisters[1]);
-            rs = Integer.toBinaryString(rsInteger);
-
-            rtInteger = RegistersDecimalTable.getRegDecimalValue(instRegisters[2]);
-            rt = Integer.toBinaryString(rtInteger);
-
-            rdInteger = RegistersDecimalTable.getRegDecimalValue(instRegisters[0]);
-            rd = Integer.toBinaryString(rdInteger);
-
-            shamt = "00000";
-            funct = OpCodeTable.getFunct(inst[0]);
-
-        }
-
-        result = opCode + rs + rt + rd + shamt + funct;
-        return result;
-    }
-
-    // TYPE I [OpCode, rs, rt, immediate (16 bits)]
-    private static String proccessInstructionTypeI(String instruction) {
-        String opCode, immediate = "";
-        int integerImmediate, rsDecimal, rtDecimal;
-        String rs = ""; 
-        String rt = ""; 
-        String baseReg = "";
-
-        String binaryResult;
-
-        String[] divInstruction = instruction.split(" ");
-        opCode = OpCodeTable.getOpCode(divInstruction[0]);
-        // divInstruction[1] = resto (ex: $s0,$s1,4)
-
-        String[] newInstructions = divInstruction[1].split(",");
-        // newInstructions[] = [$s0,$s1,4]
-
-        if (opCode == "000011" || opCode == "001010" || opCode == "001100" || opCode == "001101") { // ADDI, SLTI, ANDI, ORI
-            rtDecimal = RegistersDecimalTable.getRegDecimalValue(newInstructions[0]);
-            rt = Integer.toBinaryString(rtDecimal);
-
-            rsDecimal = RegistersDecimalTable.getRegDecimalValue(newInstructions[1]);
-            rs = Integer.toBinaryString(rsDecimal);
-
-            integerImmediate = Integer.parseInt(newInstructions[2]);
-            immediate = completeSixteenBits(integerImmediate);
-
-        } else if (opCode == "100011" || opCode == "101011") { // LW and SW
-            rtDecimal = RegistersDecimalTable.getRegDecimalValue(newInstructions[0]);
-            rt = Integer.toBinaryString(rtDecimal);
-            baseReg = newInstructions[1].substring(newInstructions[1].indexOf("("), newInstructions[1].indexOf(")"));
-            integerImmediate = rtDecimal + RegistersDecimalTable.getRegDecimalValue(baseReg);
-            immediate = completeSixteenBits(integerImmediate);
-
-        }else if (opCode == "000100" || opCode == "000101"){ // BEQ and BNE
-
-        }
-
-        binaryResult = opCode + rt + rs + immediate;
-        return binaryResult;
-    }
-
-    private static String completeSixteenBits(int binaryNumber) {
+    public static String completeSixteenBits(int binaryNumber) {
         String value = Integer.toBinaryString(binaryNumber);
         int valueLength = value.length();
 
@@ -113,20 +28,6 @@ public class RegisterDecoder {
             valueLength++;
         }
         return value;
-    }
-    // end of Type I
-    
-    private static String proccessInstructionTypeJ(String instruction) {
-        String opCode;
-        String address = "";
-
-        String binaryResult;
-
-        String[] divInstruction = instruction.split(" ");
-        opCode = OpCodeTable.getOpCode(divInstruction[0]);
-
-        binaryResult = opCode + address;
-        return binaryResult;
     }
 
     private static char defineRegType(String inst) {
