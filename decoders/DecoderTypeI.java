@@ -11,11 +11,12 @@ public class DecoderTypeI {
 
         String binaryResult;
 
-        String[] divInstruction = instruction.split(" ");
-        opCode = OpCodeTable.getOpCode(divInstruction[0]);
+        String divInstruction = instruction.substring(0, instruction.indexOf(" "));
+        opCode = OpCodeTable.getOpCode(divInstruction);
         // divInstruction[1] = resto (ex: $s0,$s1,4)
 
-        String[] newInstructions = divInstruction[1].replace(" ", "").split(",");
+        String newInstructionsStr = instruction.substring(instruction.indexOf(" "), instruction.length() ).replace(" ", "");
+        String[] newInstructions = newInstructionsStr.split(",");
         // newInstructions[] = [$s0,$s1,4]
 
         if (opCode == "000011" || opCode == "001010" || opCode == "001100" || opCode == "001101") { // ADDI, SLTI, ANDI

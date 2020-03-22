@@ -6,15 +6,16 @@ public class DecoderTypeR {
     public static String proccessInstructionTypeR(String instruction) {
         // R -> [OpCode, rs(arg1), rt(arg2), rd(result), shamt, funct]
 
-        String[] inst = instruction.split(" ");
-        String[] instRegisters = inst[1].replace(" ", "").split(",");
+        String inst = instruction.substring(0, instruction.indexOf(" "));
+        String instRegistersStr = instruction.substring(instruction.indexOf(" "), instruction.length()).replace(" ", "");
+        String[] instRegisters = instRegistersStr.split(",");
 
         String opCode = "000000";
         int rsInteger, rtInteger, rdInteger;
         String rs, rt, rd, shamt, funct = "";
         String result;
 
-        if (inst[0].equals("mult") || inst[0].equals("div")) {
+        if (inst.equals("mult") || inst.equals("div")) {
 
             rsInteger = RegistersDecimalTable.getRegDecimalValue(instRegisters[0]);
             rs = Integer.toBinaryString(rsInteger);
@@ -24,7 +25,7 @@ public class DecoderTypeR {
 
             rd = "00000";
             shamt = "00000";
-            funct = OpCodeTable.getFunct(inst[0]);
+            funct = OpCodeTable.getFunct(inst);
 
         } else {
 
@@ -38,7 +39,7 @@ public class DecoderTypeR {
             rd = Integer.toBinaryString(rdInteger);
 
             shamt = "00000";
-            funct = OpCodeTable.getFunct(inst[0]);
+            funct = OpCodeTable.getFunct(inst);
 
         }
 
