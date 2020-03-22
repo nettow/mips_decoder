@@ -1,4 +1,4 @@
-package Tables;
+package tables;
 
 public class OpCodeTable{
     public static String getOpCode(String inst){

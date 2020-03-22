@@ -1,4 +1,4 @@
-import Decoders.*;
+import decoders.*;
 public class Teste{
 
     public static void main(String[] args){

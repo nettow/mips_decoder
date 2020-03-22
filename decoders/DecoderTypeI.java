@@ -1,5 +1,5 @@
-package Decoders;
-import Tables.*;
+package decoders;
+import tables.*;
 public class DecoderTypeI {
     // TYPE I [OpCode, rs, rt, immediate (16 bits)]
     public static String proccessInstructionTypeI(String instruction) {
@@ -15,7 +15,7 @@ public class DecoderTypeI {
         opCode = OpCodeTable.getOpCode(divInstruction[0]);
         // divInstruction[1] = resto (ex: $s0,$s1,4)
 
-        String[] newInstructions = divInstruction[1].split(",");
+        String[] newInstructions = divInstruction[1].replace(" ", "").split(",");
         // newInstructions[] = [$s0,$s1,4]
 
         if (opCode == "000011" || opCode == "001010" || opCode == "001100" || opCode == "001101") { // ADDI, SLTI, ANDI

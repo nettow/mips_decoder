@@ -1,13 +1,13 @@
-package Decoders;
+package decoders;
 
-import Tables.*;
+import tables.*;
 public class DecoderTypeR {
 
     public static String proccessInstructionTypeR(String instruction) {
         // R -> [OpCode, rs(arg1), rt(arg2), rd(result), shamt, funct]
 
         String[] inst = instruction.split(" ");
-        String[] instRegisters = inst[1].split(",");
+        String[] instRegisters = inst[1].replace(" ", "").split(",");
 
         String opCode = "000000";
         int rsInteger, rtInteger, rdInteger;

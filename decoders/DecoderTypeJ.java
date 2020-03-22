@@ -1,5 +1,5 @@
-package Decoders;
-import Tables.*;
+package decoders;
+import tables.*;
 public class DecoderTypeJ{
     public static String proccessInstructionTypeJ(String instruction) {
         String opCode;
