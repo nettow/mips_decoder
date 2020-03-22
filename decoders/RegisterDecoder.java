@@ -20,11 +20,11 @@ public class RegisterDecoder {
         return result;
     }
 
-    public static String completeSixteenBits(int binaryNumber) {
+    public static String completeBits(int binaryNumber,int tamanho) {
         String value = Integer.toBinaryString(binaryNumber);
         int valueLength = value.length();
 
-        while (valueLength < 16) {
+        while (valueLength < tamanho) {
             value = "0" + value;
             valueLength++;
         }

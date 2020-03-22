@@ -23,14 +23,14 @@ public class DecoderTypeI {
             rs = Integer.toBinaryString(rsDecimal);
 
             integerImmediate = Integer.parseInt(newInstructions[2]);
-            immediate = RegisterDecoder.completeSixteenBits(integerImmediate);
+            immediate = RegisterDecoder.completeBits(integerImmediate,16);
 
         } else if (opCode == "100011" || opCode == "101011") { // LW and SW
             rtDecimal = RegistersDecimalTable.getRegDecimalValue(newInstructions[0]);
             rt = Integer.toBinaryString(rtDecimal);
             baseReg = newInstructions[1].substring(newInstructions[1].indexOf("("), newInstructions[1].indexOf(")"));
             integerImmediate = rtDecimal + RegistersDecimalTable.getRegDecimalValue(baseReg);
-            immediate = RegisterDecoder.completeSixteenBits(integerImmediate);
+            immediate = RegisterDecoder.completeBits(integerImmediate,16);
 
         } else if (opCode == "000100" || opCode == "000101") { // BEQ and BNE
 
