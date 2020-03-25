@@ -6,37 +6,32 @@ public class DecoderTypeI {
         String immediate = "";
         String rs = "";
         String rt = "";
-        String baseReg = "";
         String binaryResult;
-        int integerImmediate, rsDecimal, rtDecimal;
 
         String opCode = OpCodeTable.getOpCode(instruction.substring(0, instruction.indexOf(" ")));
 
-        String newInstructionsStr = instruction.substring(instruction.indexOf(" "), instruction.length()).replace(" ","");
-        String[] newInstructions = newInstructionsStr.split(",");
+        String divInstruction = instruction.substring(instruction.indexOf(" "), instruction.length()).replace(" ", "");
+        String[] dividedInstruction = divInstruction.split(",");
 
-        if (opCode == "000011" || opCode == "001010" || opCode == "001100" || opCode == "001101") { // ADDI, SLTI, ANDI, ORI
-            rtDecimal = RegistersDecimalTable.getRegDecimalValue(newInstructions[0]); // rtDecimal recebe o valor em decimal do registrador em newInstruction[0]
-            rt = Integer.toBinaryString(rtDecimal); // rt recebe rtDecimal transformado em binario
+        if (opCode == "000100" || opCode == "000101") { // BEQ and BNE
 
-            rsDecimal = RegistersDecimalTable.getRegDecimalValue(newInstructions[1]); // rsDecimal recebe o valor em decimal do registrador em newInstruction[1]
-            rs = Integer.toBinaryString(rsDecimal); // rrs recebe rsDecimal transformado em binario
+        }else if (opCode == "100011" || opCode == "101011") { // LW and SW
+            rt = RegisterBinaryTable.getRegBinaryValue(dividedInstruction[0]);
 
-            integerImmediate = Integer.parseInt(newInstructions[2]); // // integerImmediate recebe o valor da constante transformado para inteiro
-            immediate = RegisterDecoder.completeBits(integerImmediate,16); // completa os bits faltantes pro immediate ter 16 bits
+            rs = dividedInstruction[1].substring(dividedInstruction[1].indexOf("$"),dividedInstruction[1].indexOf(")")); // Retira os parenteses
+            rs = RegisterBinaryTable.getRegBinaryValue(rs);
 
-        } else if (opCode == "100011" || opCode == "101011") { // LW and SW
-            rtDecimal = RegistersDecimalTable.getRegDecimalValue(newInstructions[0]);
-            rt = Integer.toBinaryString(rtDecimal);
-            baseReg = newInstructions[1].substring(newInstructions[1].indexOf("("), newInstructions[1].indexOf(")"));
-            integerImmediate = rtDecimal + RegistersDecimalTable.getRegDecimalValue(baseReg);
-            immediate = RegisterDecoder.completeBits(integerImmediate,16);
+            immediate = divInstruction.substring(divInstruction.indexOf(",") + 1,divInstruction.indexOf("(")); // Pega a constante
+            immediate = RegisterDecoder.completeBits(Integer.parseInt(immediate), 16);
 
-        } else if (opCode == "000100" || opCode == "000101") { // BEQ and BNE
-            
+        }else{ // ADDI, SLTI, ANDI, ORI
+            rt = RegisterBinaryTable.getRegBinaryValue(dividedInstruction[0]);
+            rs = RegisterBinaryTable.getRegBinaryValue(dividedInstruction[1]);
+
+            immediate = RegisterDecoder.completeBits(Integer.parseInt(dividedInstruction[2]), 16);
         }
 
-        binaryResult = opCode + rt + rs + immediate;
+        binaryResult = opCode + rs + rt + immediate;
         return binaryResult;
     }
 }
