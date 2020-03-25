@@ -3,9 +3,8 @@ public class RegisterDecoder {
 
     public static String decode(String instruction) {
         String result = "";
-        char type = defineRegType(instruction.substring(0, instruction.indexOf(" ")));
-
-        switch (type) {
+        
+        switch (defineRegType(instruction.substring(0, instruction.indexOf(" ")))) {
             case 'r':
                 result = DecoderTypeR.proccessInstructionTypeR(instruction);
                 break;
@@ -15,20 +14,22 @@ public class RegisterDecoder {
             case 'j':
                 result = DecoderTypeJ.proccessInstructionTypeJ(instruction);
                 break;
+            case 'n':
+                result = completeBits(0,32);
         }
 
         return result;
     }
 
-    public static String completeBits(int binaryNumber,int tamanho) {
-        String value = Integer.toBinaryString(binaryNumber);
-        int valueLength = value.length();
+    public static String completeBits(int value,int tamanho) {
+        String binaryNumber = Integer.toBinaryString(value);
+        int numLength = binaryNumber.length();
 
-        while (valueLength < tamanho) {
-            value = "0" + value;
-            valueLength++;
+        while (numLength < tamanho) {
+            binaryNumber = "0" + binaryNumber;
+            numLength++;
         }
-        return value;
+        return binaryNumber;
     }
 
     private static char defineRegType(String inst) {
@@ -51,11 +52,6 @@ public class RegisterDecoder {
             case "neg":
                 result = 'r';
                 break;
-            // type J
-            case "j":
-            case "jal":
-                result = 'j';
-                break;
             // type I
             case "addi":
             case "lw":
@@ -66,6 +62,17 @@ public class RegisterDecoder {
             case "andi":
             case "ori":
                 result = 'i';
+                break;
+            // type J
+            case "j":
+            case "jal":
+                result = 'j';
+                break;
+            // Nop
+            case "nop":
+                result = 'n';
+                break;
+
         }
 
         return result;
