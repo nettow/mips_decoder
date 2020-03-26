@@ -13,9 +13,7 @@ public class DecoderTypeI {
         String divInstruction = instruction.substring(instruction.indexOf(" "), instruction.length()).replace(" ", "");
         String[] dividedInstruction = divInstruction.split(",");
 
-        if (opCode == "000100" || opCode == "000101") { // BEQ and BNE
-
-        }else if (opCode == "100011" || opCode == "101011") { // LW and SW
+        if (opCode == "100011" || opCode == "101011") { // LW and SW
             rt = RegisterBinaryTable.getRegBinaryValue(dividedInstruction[0]);
 
             rs = dividedInstruction[1].substring(dividedInstruction[1].indexOf("$"),dividedInstruction[1].indexOf(")")); // Retira os parenteses
@@ -24,13 +22,12 @@ public class DecoderTypeI {
             immediate = divInstruction.substring(divInstruction.indexOf(",") + 1,divInstruction.indexOf("(")); // Pega a constante
             immediate = RegisterDecoder.completeBits(Integer.parseInt(immediate), 16);
 
-        }else{ // ADDI, SLTI, ANDI, ORI
+        }else{
             rt = RegisterBinaryTable.getRegBinaryValue(dividedInstruction[0]);
             rs = RegisterBinaryTable.getRegBinaryValue(dividedInstruction[1]);
 
             immediate = RegisterDecoder.completeBits(Integer.parseInt(dividedInstruction[2]), 16);
         }
-
         binaryResult = opCode + rs + rt + immediate;
         return binaryResult;
     }
