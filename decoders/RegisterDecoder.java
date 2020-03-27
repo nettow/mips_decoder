@@ -4,6 +4,9 @@ public class RegisterDecoder {
     public static String decode(String instruction) {
         String result = "";
         
+        if(instruction.equals("nop"))
+            result = completeBits(0, 32);
+
         switch (defineRegType(instruction.substring(0, instruction.indexOf(" ")))) {
             case 'r':
                 result = DecoderTypeR.proccessInstructionTypeR(instruction);
@@ -13,9 +16,6 @@ public class RegisterDecoder {
                 break;
             case 'j':
                 result = DecoderTypeJ.proccessInstructionTypeJ(instruction);
-                break;
-            case 'n':
-                result = completeBits(0,32);
         }
 
         return result;
