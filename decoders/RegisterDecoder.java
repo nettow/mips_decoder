@@ -1,27 +1,28 @@
 package decoders;
+
 public class RegisterDecoder {
 
     public static String decode(String instruction) {
         String result = "";
-        
-        if(instruction.equals("nop"))
+
+        if (instruction.equals("nop")) {
             result = completeBits(0, 32);
-
-        switch (defineRegType(instruction.substring(0, instruction.indexOf(" ")))) {
-            case 'r':
-                result = DecoderTypeR.proccessInstructionTypeR(instruction);
-                break;
-            case 'i':
-                result = DecoderTypeI.proccessInstructionTypeI(instruction);
-                break;
-            case 'j':
-                result = DecoderTypeJ.proccessInstructionTypeJ(instruction);
+        }else{
+            switch (defineRegType(instruction.substring(0, instruction.indexOf(" ")))) {
+                case 'r':
+                    result = DecoderTypeR.proccessInstructionTypeR(instruction);
+                    break;
+                case 'i':
+                    result = DecoderTypeI.proccessInstructionTypeI(instruction);
+                    break;
+                case 'j':
+                    result = DecoderTypeJ.proccessInstructionTypeJ(instruction);
+            }
         }
-
         return result;
     }
 
-    public static String completeBits(int value,int tamanho) {
+    public static String completeBits(int value, int tamanho) {
         String binaryNumber = Integer.toBinaryString(value);
         int numLength = binaryNumber.length();
 
