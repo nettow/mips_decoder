@@ -9,9 +9,14 @@ public class DecoderTypeR {
         String[] instRegisters = instRegistersStr.split(",");
         String opCode = "000000";
         String rs, rt, rd, shamt, funct = "";
-        String result;
 
-        if (inst.equals("mult") || inst.equals("div")) {
+        if (inst.equals("jr")){
+            rs = RegisterBinaryTable.getRegBinaryValue(instRegistersStr);
+            rt = "00000";
+            rd = "00000";
+            shamt = "00000";
+            funct = OpCodeTable.getFunct(inst);
+        } else if (inst.equals("mult") || inst.equals("div")) {
 
             rs = RegisterBinaryTable.getRegBinaryValue(instRegisters[0]);
             rt = RegisterBinaryTable.getRegBinaryValue(instRegisters[1]);
@@ -36,7 +41,7 @@ public class DecoderTypeR {
             funct = OpCodeTable.getFunct(inst);
 
         }
-        result = opCode + rs + rt + rd + shamt + funct;
-        return result;
+        return opCode + rs + rt + rd + shamt + funct;
+
     }
 }
