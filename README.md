@@ -17,8 +17,14 @@ Em seguida execute o programa passando o arquivo de entrada com as instruçoes M
 ```bash
 java Mips32decode [arq_entrada] [arq_saida]
 ```
+### Formato das instruções
+Exemplos de instruções no arquivo de entrada:
+> addi $s1,$t3,4
 
-### Instruçoes suportadas
+> add $s1,$t3,$t1
+
+> j 1024
+### Instruções suportadas
 
 * Aritméticas: add, addi sub, mult, div, neg
 
