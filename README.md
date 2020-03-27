@@ -1,18 +1,24 @@
 # Decodiﬁcador de Instruções do MIPS
 
-## Intro
-
 Este trabalho faz parte de uma série que tem como objetivo final a construção de um simulador de um processador MIPS
 
 Nesta primeira etapa, será implementado um programa, em Java, que que decodifica comandos em linguagem de montagem para instruções de máquina do MIPS
 
-## Install
+## Como usar
 
-> here
+Primeiro compile o programa no seu diretorio raiz
 
-## Use
+```bash
+javac *.java
+```
 
-### Possible commands
+Em seguida execute o programa passando o arquivo de entrada com as instruçoes MIPS e o arquivo onde serao escritas as saidas
+
+```bash
+java Mips32decode [arq_entrada] [arq_saida]
+```
+
+### Instruçoes suportadas
 
 * Aritméticas: add, addi sub, mult, div, neg
 
