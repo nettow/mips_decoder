@@ -19,7 +19,7 @@ public class RegisterBinaryTable{
             case "$t4": return "01100";
             case "$t5": return "01101";
             case "$t6": return "01110";
-            case "$t7": return "01111"; // 15
+            case "$t7": return "01111";
             case "$s0": return "10000";
             case "$s1": return "10001";
             case "$s2": return "10010";

@@ -2,24 +2,22 @@ package decoders;
 
 public class RegisterDecoder {
 
-    public static String decode(String instruction) {
-        String result = "";
+    public static Objeto decode(String instruction) {
+        Objeto result = null;
 
-        if (instruction.equals("nop")) {
-            result = completeBits(0, 32);
-        }else{
+
             switch (defineRegType(instruction.substring(0, instruction.indexOf(" ")))) {
                 case 'r':
                     result = DecoderTypeR.proccessInstructionTypeR(instruction);
                     break;
                 case 'i':
-                    result = DecoderTypeI.proccessInstructionTypeI(instruction);
+                    result = new Objeto(DecoderTypeI.proccessInstructionTypeI(instruction));
                     break;
                 case 'j':
-                    result = DecoderTypeJ.proccessInstructionTypeJ(instruction);
-            }
+                    result = new Objeto(DecoderTypeJ.proccessInstructionTypeJ(instruction));
         }
         return result;
+    
     }
 
     public static String completeBits(int value, int tamanho) {

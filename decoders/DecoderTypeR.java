@@ -3,7 +3,7 @@ package decoders;
 import tables.*;
 
 public class DecoderTypeR {
-    public static String proccessInstructionTypeR(String instruction) {
+    public static Objeto proccessInstructionTypeR(String instruction) {
         String inst = instruction.substring(0, instruction.indexOf(" "));
         String instRegistersStr = instruction.substring(instruction.indexOf(" "), instruction.length()).replace(" ","");
         String[] instRegisters = instRegistersStr.split(",");
@@ -41,7 +41,18 @@ public class DecoderTypeR {
             funct = OpCodeTable.getFunct(inst);
 
         }
-        return opCode + rs + rt + rd + shamt + funct;
+        String hexaValue = Integer.toHexString(soma(rs,rt));
+        Objeto resultado = new Objeto((opCode + rs + rt + rd + shamt + funct), hexaValue, Integer.parseInt(rd,2));
+        
+        return resultado;
 
+    }
+
+    public static int soma(String rs,String rt){
+        int rsInteger = Integer.parseInt(rs,2);
+        int rtInteger = Integer.parseInt(rt,2);
+        int resultado = rsInteger + rtInteger;
+
+        return resultado;
     }
 }

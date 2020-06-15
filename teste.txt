@@ -1,0 +1,5 @@
+add $s0,$s2,$s1
+add $v0,$t2,$t1
+add $t1,$s5,$s1
+add $s2,$v4,$v1
+add $s2,$t1,$a1
